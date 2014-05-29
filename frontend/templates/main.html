@@ -1,0 +1,31 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <textarea ng-model="json" class="lined form-inline" wrap="soft" rows="30" cols="80" spellcheck="false" style="resize: both"
+                      placeholder="Put your JSON here..."></textarea>
+        </div>
+        <div class="col-md-6">
+            <textarea ng-model="goStruct" class="lined" wrap="soft" disabled rows="30" cols="80" spellcheck="false"
+                      style="resize: both"></textarea>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 20px">
+        <div class="col-md-4">
+            <div class="form-group">
+                <input angular-growl.jsng-required="true" placeholder="Name of the Go type" ng-model="typeName" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Tags you want to put to each field of the Go type generated (';' as delimiters)</label>
+                <input ng-model="tags" class="form-control">
+            </div>
+            <button class="btn btn-success" ng-click="generate(json, typeName, tags)">Generate</button>
+        </div>
+    </div>
+</div>
+<script>
+    jQuery(function () {
+        jQuery(".lined").linedtextarea(
+                {selectedLine: 1}
+        )
+    });
+</script>
