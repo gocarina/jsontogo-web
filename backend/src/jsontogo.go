@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"github.com/gocarina/jsontogo"
 	"github.com/pikanezi/http"
-	"fmt"
+	"log"
 )
 
 type GoStruct struct {
@@ -22,7 +22,6 @@ func jsonToGoHandler(w http.ResponseWriter, r *http.Request) *http.Error {
 	if err := r.GetJSONObject(&object); err != nil {
 		return http.NewError(err, 0, 400)
 	}
-	fmt.Println(object)
 	stringWriter := &bytes.Buffer{}
 	enc := jsontogo.NewEncoderWithNameAndTags(stringWriter, object.TypeName, object.Tags)
 	if err := enc.Encode([]byte(object.JSON)); err != nil {
@@ -33,9 +32,9 @@ func jsonToGoHandler(w http.ResponseWriter, r *http.Request) *http.Error {
 }
 
 func main() {
-	r := http.NewRouter("http://localhost:63342")
+	r := http.NewRouter("http://localhost:63337")
 
 	r.Post("/", jsonToGoHandler)
 
-	http.ListenAndServe(":5432", r)
+	log.Fatal(http.ListenAndServe(":5432", r))
 }

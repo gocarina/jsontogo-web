@@ -7,16 +7,16 @@ function MainController($scope, $http, growl) {
     $scope.tags = "json;";
 
     $scope.generate = function (json, typeName, tags) {
-        console.log(typeName);
-        if (typeName == "") {
-            growl.addErrorMessage("Name of the Go type is required")
-            return
+        if (typeName == "" || json == "") {
+            growl.addErrorMessage("Name of the Go type is required");
+            return;
         }
         $http.post("http://localhost:5432", {"json": json, "typeName": typeName, "tags": tags.split(";")}).
             success(function (data) {
                 $scope.goStruct = data.goType;
             }).
-            error(function () {
+            error(function (data) {
+                console.log(data);
                 growl.addErrorMessage("Server error happened")
             });
     }
