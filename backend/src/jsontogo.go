@@ -34,7 +34,7 @@ func jsonToGoHandler(w http.ResponseWriter, r *http.Request) *http.Error {
 func main() {
 	r := http.NewRouter("http://localhost:63337")
 
-	r.Post("/", jsonToGoHandler)
+	r.Post("/json", jsonToGoHandler)
 
 	log.Fatal(http.ListenAndServe(":5432", r))
 }
