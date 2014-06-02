@@ -4,7 +4,7 @@
 function MainController($scope, $http, growl, api) {
     $scope.json = "";
     $scope.typeName = "";
-    $scope.tags = "json;";
+    $scope.tags = "json";
 
     $scope.generate = function (json, typeName, tags) {
         if (typeName == "") {
