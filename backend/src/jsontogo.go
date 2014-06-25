@@ -7,6 +7,10 @@ import (
 	"log"
 )
 
+const (
+	domainCORS = "http://localhost:63337"
+)
+
 type GoStruct struct {
 	Type string `json:"goType"`
 }
@@ -32,7 +36,14 @@ func jsonToGoHandler(w http.ResponseWriter, r *http.Request) *http.Error {
 }
 
 func main() {
-	r := http.NewRouter("http://localhost:63337")
+	r := http.NewRouter()
+	r.SetCustomHeader(http.Header{
+		"Access-Control-Allow-Origin":      domainCORS,
+		"Access-Control-Allow-Methods":     "POST, GET, OPTIONS, PUT, DELETE",
+		"Access-Control-Allow-Headers":     "Content-Type, Authorization, Accept, x-api-key",
+		"Access-Control-Allow-Max-Age":     "604800",
+		"Access-Control-Allow-Credentials": "true",
+	})
 
 	r.Post("/json", jsonToGoHandler)
 
